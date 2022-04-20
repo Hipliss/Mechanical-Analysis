@@ -260,6 +260,48 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1429191938}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &275694276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275694271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a2b862a0d3ed64ba6ef5313d8b36b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 2092851516}
+  _followTransform: {fileID: 275694275}
+  _framing: {x: 0, y: 1}
+  _zoomSpeed: 5
+  _defaultDistance: 5
+  _minDistance: 0
+  _maxDistance: 10
+  _mouseSensitivity: 1
+  _invertX: 0
+  _invertY: 1
+  _rotationSharpness: 50
+  _defaultVerticalAngle: 20
+  _minVerticalAngle: -90
+  _maxVerticalAngle: 90
+  _checkRadius: 0.2
+  _obstructionLayers:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &275694277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275694271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380b1075f160b014cba17b1a73040b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1429191938
 PrefabInstance:
   m_ObjectHideFlags: 0
