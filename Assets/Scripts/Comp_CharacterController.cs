@@ -7,6 +7,8 @@ namespace HamJoyGames
     public class Comp_CharacterController : MonoBehaviour
     {
 
+        [SerializeField] GameObject tiger;
+
         [Header("Movement")]
         [SerializeField] private float _runSpeed = 6f;
 
@@ -20,6 +22,7 @@ namespace HamJoyGames
 
         private float _targetSpeed;
         private Quaternion _targetRotation;
+        private float _mountSpeed = 10f;
 
         private float _newSpeed;
         private Vector3 _newVelocity;
@@ -32,6 +35,7 @@ namespace HamJoyGames
             _cameraController = GetComponent<Comp_CameraController>();
 
             _animator.applyRootMotion = false;
+
         }
 
         private void Update()
@@ -62,6 +66,13 @@ namespace HamJoyGames
 
             // Animations
             _animator.SetFloat("Forward", _newSpeed);
+
+            if (tiger != null && tiger.activeSelf)
+            {
+                _targetSpeed = _moveInputVector != Vector3.zero ? _mountSpeed : 0;
+                tiger.GetComponent<Animator>().SetFloat("Forward", _newSpeed);
+            }
+
         }
     }
 }
