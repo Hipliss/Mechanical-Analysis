@@ -13,8 +13,11 @@ public class ybotController : MonoBehaviour
     [SerializeField] float mountUp = 2.0f;
 
     [SerializeField] LevelController levelController;
+    //[SerializeField] GameObject footsteps;
 
     Animator animator;
+    Ybot_footsteps footsteps;
+    Tiger_footsteps tigerFootsteps;
 
     //float speed = 4.0f;
     float gravity = -9.81f;
@@ -28,12 +31,22 @@ public class ybotController : MonoBehaviour
     bool tigerActive;
 
     Vector3 velocity;
+
+    [SerializeField] float timerSpeed = 1f;
+    float lastTimeStamp;
+
+    [SerializeField] float timerSpeedTiger = 1f;
+    float lastTimeStampTiger;
+
     
     private void Start()
     {
         animator = GetComponent<Animator>();
         controller.slopeLimit = 45;
         controller.stepOffset = 0.7f;
+
+        footsteps = GetComponent<Ybot_footsteps>();
+        tigerFootsteps = GetComponent<Tiger_footsteps>();
     }
 
 
@@ -97,33 +110,63 @@ public class ybotController : MonoBehaviour
             controller.stepOffset = 0;
         }
 
+        if (tigerActive == false)
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                if (Time.time - lastTimeStamp >= timerSpeed)
+                {
+                    lastTimeStamp = Time.time;
+                    footsteps.PlayRandom();
+                }
+
+            }
+
+        }
+        if (tigerActive == true)
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                if (Time.time - lastTimeStampTiger >= timerSpeedTiger)
+                {
+                    lastTimeStampTiger = Time.time;
+                    tigerFootsteps.PlayRoundRobin();
+                    tigerFootsteps.PlayRandom();
+                }
+
+            }
+        }
+
 
         velocity.y += gravity * Time.deltaTime;
         //controller.Move(velocity * Time.deltaTime);
 
         levelController.CastBar();
+
     }
 
     public void Summon()
     {
-        float mountDown = mountUp * -1;
-
-        if (Input.GetKeyDown(KeyCode.T) && tigerActive == false)
+        if (tigerActive == false)
         {
             tigerActive = true;
             tiger.SetActive(tigerActive);
             ybot.Translate(0, mountUp, 0);
             animator.SetBool("Mount", true);
         }
-        else if (Input.GetKeyDown(KeyCode.T) && tigerActive == true)
-        {
+    }
 
+    public void Desummon()
+    {
+        float mountDown = mountUp * -1;
+
+        if (tigerActive == true)
+        {
             tigerActive = false;
             tiger.SetActive(tigerActive);
             ybot.Translate(0, mountDown, 0);
             animator.SetBool("Mount", false);
         }
-
     }
 
 }
